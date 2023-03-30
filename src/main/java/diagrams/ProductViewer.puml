@@ -1,0 +1,23 @@
+@startuml
+actor "USER" as user
+participant "MainMenu" as menu
+participant "Productviewer" as viewer
+participant "productCollectionsDAO" as DAO
+
+
+
+user <- menu++ : click "view products"
+create viewer
+menu -> viewer: <<construct>>
+create DAO
+viewer -> DAO : <<constructs>>
+viewer -> DAO : getProducts()
+DAO --> viewer: return products
+DAO--
+viewer -> viewer : updateItems(products)
+viewer -> viewer : usetModel(productsModel)
+
+
+@enduml
+
+

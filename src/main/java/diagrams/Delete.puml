@@ -1,0 +1,40 @@
+@startuml
+
+actor "User" as user
+participant "Main" as main
+participant "MainMenu" as menu << frame>>
+participant "ProductViewer" as dialog <<dialog>>
+participant "dao: ProductJdbiDAO" as dao <<ProductsDAO >>
+participant "SimpleListModel" as model
+database "H2 Database" as database
+create dao
+main -> dao : <<construct>>
+create menu
+main -> menu : <<construct(dao)>>
+user -> menu++ : clicks "veiw Products
+create dialog
+menu -> dialog++ : << onstruct>>
+dialog -> dao : getProducts()
+dao++
+dao -> database  :  gets products form table
+return query result
+return products
+dialog -> dao : getCategories()
+dao++
+dao -> database : gets catagory
+return query result
+return categories
+create model
+dialog -> model :  <<construct >>
+dialog -> model++ : updateItems(products)
+model--
+dialog -> model++ : updateItems(categories)
+model--
+dialog--
+user -> dialog : selects product to be deleted
+user -> dialog++ : clicks "delete"
+dialog -> dao : <<construct>>
+dialog -> dao++ : removeProduct(product)
+dao -> database : delete form product for table product
+
+@enduml

@@ -1,0 +1,37 @@
+@startuml
+actor "USER" as user
+participant "main" as main
+participant ":mainMenu" as mainMenu <<frame>>
+participant  "Productviewer" as productVeiwer <<dialog>>
+participant "dao: ProductJdbioFactory" as dao <<productDAO>>
+participant "productsModel" as productsModel <<simpleListModel>>
+
+
+participant "h2 database" as database 
+
+
+main -> dao++ : <<construct>> 
+user -> main : click "viewProducts"	
+create mainMenu
+main -> mainMenu: <<construct>>
+
+
+user -> mainMenu: click "clicks 'viewProducts'"
+create productVeiwer
+mainMenu -> productVeiwer: <<construct>>
+create productsModel
+productVeiwer -> productsModel: <<construct>>
+
+productsModel -> productVeiwer: <<construct>>
+user -> productVeiwer: "enters"
+user -> productVeiwer: click "search"
+productVeiwer -> dao: "searchById()"
+dao -> database: "gets product from dao" 
+dao <-- database: "query result" 
+dao <-- productVeiwer: "gets product"
+productVeiwer -> productsModel: "update products model"
+
+
+@enduml
+
+

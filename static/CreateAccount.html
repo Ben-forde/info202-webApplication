@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Create An Account</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="js/external/vue.global.js"></script>
+        <script src="js/external/vuex.global.js"></script>
+        <script src="js/external/vuex-persistedstate.js"></script>
+        <script src="js/external/axios.js"></script>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+     <main id="content">   
+   ` <navigation></navigation>
+        <div class="header">
+            <h1>Create An Account</h1>
+        </div>
+        
+            <form @submit.prevent="registerCustomer()">
+                <fieldset>
+                    <legend>Account Details</legend>
+
+                    <label for="username">Username:</label>
+                    <input id="username" type="text" v-model="customer.username" required>
+
+                    <label for="firstName">First Name:</label>
+                    <input id="firstname" type="text" v-model="customer.firstName" required>
+
+                    <label for="lastName">Last Name:</label>
+                    <input id="lastName" type="text" v-model="customer.surname" required>
+
+                    <label for="email">Email:</label>
+                    <input id="email" type="email" v-model="customer.emailAddress" required>
+
+                    <label for="address">Address:</label>
+                    <input id="address" type="text" v-model="customer.shippingAddress" required>
+
+                    <label for="password">Password:</label>
+                    <input id="password" type="password" v-model="customer.password" required>
+
+                    <button type="submit">Create Account</button>
+                </fieldset>
+            </form>
+        </main>
+        <script type="module" src="js/customer.js"></script>
+    </body>
+</html>

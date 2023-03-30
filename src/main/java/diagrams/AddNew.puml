@@ -1,0 +1,32 @@
+@startuml
+actor "USER" as user
+participant "MainMenu" as menu
+participant "ProductEditor" as editor
+participant "domain" as domain
+participant "productCollectionsDAO" as DAO
+
+
+
+user <- menu++ : click "addNew"
+create editor
+menu -> editor++ : <<construct>>
+create domain
+editor -> domain : <<construct>>
+editor -> editor : getProductId()
+
+editor -> domain : setProductId()
+editor -> editor : getName()
+editor -> domain: setName()
+editor -> editor : getDescription()
+editor -> domain: setDescription()
+editor -> editor : getListPrice()
+editor -> domain: setListPrice()
+editor -> editor : getQuantityInStock()
+editor -> domain : setQuantityInStock()
+user -> editor : click "save"
+create DAO
+editor -> DAO : <<construct>>
+editor -> DAO : saveproduct()
+
+@enduml
+

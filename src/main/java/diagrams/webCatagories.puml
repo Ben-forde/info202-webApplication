@@ -1,0 +1,33 @@
+@startuml
+actor "USER" as user
+box "web Browser"
+participant "ProductPage" as Productpage <<Html>>
+participant  "ProductList" as productList <<vue>>
+participant "HttpClient" as axios <<http client>>
+end box
+box "web server"
+participant "jooby" as server <<jooby>>
+participant "productModule" as ProductModule <<jooby>>
+participant "ProductJdbiDao" as Productjbdidao <<Dao>>
+end box
+
+participant "h2 database" as database 
+box "web Browser"
+user -> Productpage: click "click catagories button"
+Productpage -> productList: "filterByCatagory(cat)"
+productList -> axios: "get"
+axios -> server: "http get api"
+server -> ProductModule: "api catagories"
+ProductModule -> Productjbdidao: "filterbyCatagory"
+Productjbdidao -> database: "sql query"
+database -> Productjbdidao: "catagorie"
+Productjbdidao -> ProductModule: "catagorie"
+ProductModule -> server: "catagorie"
+server -> axios: "json catagorie" 
+axios -> productList: "json catagorie"
+productList -> Productpage: "catagories displayed on page"
+@enduml
+
+
+
+
